@@ -41,15 +41,6 @@ struct cpu_data {
 static struct cpu_data *cpu_data_buffer = NULL;
 static u8 hwp = 0;
 
-static unsigned long long rdtsc(void)
-{
-        unsigned int low, high;
-
-        asm volatile("rdtsc" : "=a" (low), "=d" (high));
-
-        return low | ((unsigned long long)high) << 32;
-}
-
 static int gather_cpu_data(struct cpu_data *d, int cpu)
 {
         u64 perf_bias;
