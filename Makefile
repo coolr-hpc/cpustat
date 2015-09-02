@@ -14,7 +14,8 @@ all::
 
 clean::
 	rm -f *.o  *.ko *.mod.c  modules.order  Module.symvers
-	rm -rf .[a-z]*
-	rm -f *~
+	rm -f .built-in.o.cmd
+	rm -f .turbofreq.*
+	rm -rf .tmp_versions
 
 endif
