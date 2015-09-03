@@ -386,3 +386,4 @@ module_exit(cpustat_module_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("pablo.llopis@gmail.com");
+MODULE_AUTHOR("kazutomo@mcs.anl.gov");
