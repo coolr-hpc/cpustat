@@ -31,8 +31,8 @@ struct cpu_data {
         u16 perf_target;
         u16 perf_status;
         u8 turbo_disengage;
-	u64 tsc;
-/*        u16 lowest_perf;
+     	u64 tsc;
+/*      u16 lowest_perf;
         u16 guaranteed_perf; // dynamic
         u16 mostefficient_perf; // dynamic
         u16 highest_perf;*/
@@ -46,9 +46,9 @@ static int gather_cpu_data(struct cpu_data *d, int cpu)
         u64 perf_bias;
         u64 perf_ctl;
         u64 perf_status;
-	unsigned long flags;
+        unsigned long flags;
 
-	local_irq_save(flags);
+        local_irq_save(flags);
         rdmsrl_on_cpu(cpu, MSR_IA32_APERF, &(d->aperf)); // thread for snb
         rdmsrl_on_cpu(cpu, MSR_IA32_MPERF, &(d->mperf)); // thread for snb
         // package for snb, thread for phi, not in hsw
@@ -59,7 +59,7 @@ static int gather_cpu_data(struct cpu_data *d, int cpu)
         //rdpmcl(PMC_IA32_PERF_FIXED_CTR2, d->urc);
         rdmsrl_on_cpu(cpu, MSR_IA32_PERF_CTL, &perf_ctl); // thread for snb
         rdmsrl_on_cpu(cpu, MSR_IA32_PERF_STATUS, &perf_status); // package for snb
-	local_irq_restore(flags);
+        local_irq_restore(flags);
         rdtscll(d->tsc);
         d->perf_bias = perf_bias & 0xf;
         d->perf_target = perf_ctl & 0xffff;
@@ -86,9 +86,9 @@ static ssize_t cpustat_show(struct device *dev, struct device_attribute *attr,
                          "urc %19llu\n"
                          "perf_target %11u\n"
                          "perf_status %11u\n"
-			 "pstate %16d\n"
+                         "pstate %16d\n"
                          "turbo_disengage %7u\n"
-			 "tsc %19llu\n"
+                         "tsc %19llu\n"
                          ,cpu, d->aperf, d->mperf, d->perf_bias,
                          d->ucc, d->urc, d->perf_target, d->perf_status,
                          ((d->perf_status >> 8) & 0xff), d->turbo_disengage, d->tsc);
