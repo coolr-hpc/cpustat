@@ -60,7 +60,7 @@ static int gather_cpu_data(struct cpu_data *d, int cpu)
         rdmsrl_on_cpu(cpu, MSR_IA32_PERF_CTL, &perf_ctl); // thread for snb
         rdmsrl_on_cpu(cpu, MSR_IA32_PERF_STATUS, &perf_status); // package for snb
 	local_irq_restore(flags);
-	d->tsc = rdtsc();
+        rdtscll(d->tsc);
         d->perf_bias = perf_bias & 0xf;
         d->perf_target = perf_ctl & 0xffff;
         d->turbo_disengage = (perf_ctl & (1UL << 32));
